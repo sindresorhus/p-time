@@ -8,6 +8,9 @@ module.exports = fn => {
 		const retPromise = promise.then(res => {
 			retPromise.time = Date.now() - start;
 			return res;
+		}, err => {
+			retPromise.time = Date.now() - start;
+			throw err;
 		});
 
 		return retPromise;
