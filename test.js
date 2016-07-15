@@ -7,7 +7,7 @@ test('then', async t => {
 	const timedDelay = m(delay);
 	const promise = timedDelay(200);
 	await promise;
-	t.true(inRange(promise.time, 200, 250));
+	t.true(inRange(promise.time, 180, 250));
 });
 
 test('catch', async t => {
@@ -20,5 +20,5 @@ test('catch', async t => {
 		});
 	} catch (err) {}
 
-	t.true(inRange(promise.time, 200, 250));
+	t.true(inRange(promise.time, 180, 250));
 });
