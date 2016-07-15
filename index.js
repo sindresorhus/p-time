@@ -22,7 +22,7 @@ const promiseTime = fn => {
 };
 
 const log = (fn, promise) => {
-	console.log(`Promise from ${fn.displayName || '[anonymous]'} resolved in ${promise.time} ms`);
+	console.log(`Promise from ${fn.displayName || fn.name || '[anonymous]'} resolved in ${promise.time} ms`);
 };
 
 module.exports = promiseTime;
