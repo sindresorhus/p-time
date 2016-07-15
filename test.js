@@ -1,6 +1,7 @@
 import test from 'ava';
 import delay from 'delay';
 import inRange from 'in-range';
+import hookStd from 'hook-std';
 import m from './';
 
 test('then', async t => {
@@ -21,4 +22,30 @@ test('catch', async t => {
 	} catch (err) {}
 
 	t.true(inRange(promise.time, 200, 250));
+});
+
+test.cb.serial('log', t => {
+	function myDelay(ms) {
+		return new Promise(resolve => {
+			setTimeout(resolve, ms);
+		});
+	}
+
+	const unhook = hookStd.stdout(output => {
+		unhook();
+		t.regex(output, /Promise from myDelay resolved in [0-9]+ ms/);
+		t.end();
+	});
+
+	m.log(myDelay)(200);
+});
+
+test.cb.serial('log aynonymous function', t => {
+	const unhook = hookStd.stdout(output => {
+		unhook();
+		t.regex(output, /Promise from \[anonymous\] resolved in [0-9]+ ms/);
+		t.end();
+	});
+
+	m.log(delay)(200);
 });
