@@ -25,15 +25,13 @@ test('catch', async t => {
 });
 
 test.cb.serial('log', t => {
-	function myDelay(ms) {
-		return new Promise(resolve => {
-			setTimeout(resolve, ms);
-		});
-	}
+	const myDelay = ms => new Promise(resolve => {
+		setTimeout(resolve, ms);
+	});
 
-	const unhook = hookStd.stdout(output => {
+	const unhook = hookStd.stdout({silent: true}, output => {
 		unhook();
-		t.regex(output, /Promise from myDelay resolved in [0-9]+ ms/);
+		t.regex(output, /Promise from myDelay resolved in \d+ ms/);
 		t.end();
 	});
 
@@ -41,7 +39,7 @@ test.cb.serial('log', t => {
 });
 
 test.cb.serial('log aynonymous function', t => {
-	const unhook = hookStd.stdout(output => {
+	const unhook = hookStd.stdout({silent: true}, output => {
 		unhook();
 		t.regex(output, /Promise from \[anonymous\] resolved in [0-9]+ ms/);
 		t.end();
