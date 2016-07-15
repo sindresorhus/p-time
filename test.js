@@ -41,7 +41,7 @@ test.cb.serial('log', t => {
 test.cb.serial('log aynonymous function', t => {
 	const unhook = hookStd.stdout({silent: true}, output => {
 		unhook();
-		t.regex(output, /Promise from \[anonymous\] resolved in [0-9]+ ms/);
+		t.regex(output, /Promise from \[anonymous\] resolved in \d+ ms/);
 		t.end();
 	});
 
