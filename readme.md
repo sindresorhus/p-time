@@ -31,6 +31,10 @@ promise.then(() => {
 
 Returns a decorated version of `input` that when executed returns a `Promise` with a `time` property of the elapsed time in milliseconds.
 
+### promiseTime.log(input)
+
+Returns a decorated version of `input` that when executed logs the elapsed time in milliseconds of the `Promise`.
+
 #### input
 
 Type: `Function`
