@@ -1,7 +1,7 @@
 {
   "name": "promise-time",
   "version": "0.2.0",
-  "description": "Measure the time a Promise takes to resolve",
+  "description": "Measure the time a promise takes to resolve",
   "license": "MIT",
   "repository": "sindresorhus/promise-time",
   "author": {
