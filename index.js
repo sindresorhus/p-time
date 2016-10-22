@@ -1,4 +1,6 @@
 'use strict';
+const mimicFn = require('mimic-fn');
+
 const promiseTime = fn => {
 	const ret = function () {
 		const start = Date.now();
@@ -16,7 +18,7 @@ const promiseTime = fn => {
 		return retPromise;
 	};
 
-	ret.displayName = fn.name;
+	mimicFn(ret, fn);
 
 	return ret;
 };

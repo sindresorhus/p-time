@@ -30,6 +30,9 @@
     "resolve",
     "execute"
   ],
+  "dependencies": {
+    "mimic-fn": "^1.0.0"
+  },
   "devDependencies": {
     "ava": "*",
     "delay": "^1.3.1",
