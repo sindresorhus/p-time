@@ -1,7 +1,7 @@
 'use strict';
 const mimicFn = require('mimic-fn');
 
-const promiseTime = fn => {
+const pTime = fn => {
 	const ret = function () {
 		const start = Date.now();
 		// TODO: use rest/spread when Node.js 6 is targeted
@@ -27,10 +27,10 @@ const log = (fn, promise) => {
 	console.log(`Promise from ${fn.displayName || fn.name || '[anonymous]'} resolved in ${promise.time} ms`);
 };
 
-module.exports = promiseTime;
+module.exports = pTime;
 
 module.exports.log = fn => {
-	const wrapper = promiseTime(fn);
+	const wrapper = pTime(fn);
 
 	return function () {
 		// TODO: use rest/spread when Node.js 6 is targeted

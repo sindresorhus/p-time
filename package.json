@@ -1,9 +1,9 @@
 {
-  "name": "promise-time",
+  "name": "p-time",
   "version": "0.2.0",
   "description": "Measure the time a promise takes to resolve",
   "license": "MIT",
-  "repository": "sindresorhus/promise-time",
+  "repository": "sindresorhus/p-time",
   "author": {
     "name": "Sindre Sorhus",
     "email": "sindresorhus@gmail.com",
