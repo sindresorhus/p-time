@@ -1,46 +1,45 @@
 {
-  "name": "p-time",
-  "version": "1.0.0",
-  "description": "Measure the time a promise takes to resolve",
-  "license": "MIT",
-  "repository": "sindresorhus/p-time",
-  "author": {
-    "name": "Sindre Sorhus",
-    "email": "sindresorhus@gmail.com",
-    "url": "sindresorhus.com"
-  },
-  "engines": {
-    "node": ">=4"
-  },
-  "scripts": {
-    "test": "xo && ava"
-  },
-  "files": [
-    "index.js"
-  ],
-  "keywords": [
-    "promise",
-    "time",
-    "timed",
-    "timing",
-    "timer",
-    "elapsed",
-    "measure",
-    "bench",
-    "resolve",
-    "execute"
-  ],
-  "dependencies": {
-    "mimic-fn": "^1.0.0"
-  },
-  "devDependencies": {
-    "ava": "*",
-    "delay": "^1.3.1",
-    "hook-std": "^0.2.0",
-    "in-range": "^1.0.0",
-    "xo": "*"
-  },
-  "xo": {
-    "esnext": true
-  }
+	"name": "p-time",
+	"version": "1.0.0",
+	"description": "Measure the time a promise takes to resolve",
+	"license": "MIT",
+	"repository": "sindresorhus/p-time",
+	"author": {
+		"name": "Sindre Sorhus",
+		"email": "sindresorhus@gmail.com",
+		"url": "sindresorhus.com"
+	},
+	"engines": {
+		"node": ">=6"
+	},
+	"scripts": {
+		"test": "xo && ava && tsd-check"
+	},
+	"files": [
+		"index.js",
+		"index.d.ts"
+	],
+	"keywords": [
+		"promise",
+		"time",
+		"timed",
+		"timing",
+		"timer",
+		"elapsed",
+		"measure",
+		"bench",
+		"resolve",
+		"execute"
+	],
+	"dependencies": {
+		"mimic-fn": "^2.0.0"
+	},
+	"devDependencies": {
+		"ava": "^1.3.1",
+		"delay": "^4.1.0",
+		"hook-std": "^1.2.0",
+		"in-range": "^1.0.0",
+		"tsd-check": "^0.4.0",
+		"xo": "^0.24.0"
+	}
 }

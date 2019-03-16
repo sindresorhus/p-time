@@ -18,10 +18,11 @@ const execa = require('execa');
 
 const promise = pTime(execa)('sleep', ['1']);
 
-promise.then(() => {
+(async () => {
+	await promise;
 	console.log(promise.time);
 	//=> 1016
-});
+})();
 ```
 
 

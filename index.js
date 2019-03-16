@@ -2,25 +2,24 @@
 const mimicFn = require('mimic-fn');
 
 const pTime = fn => {
-	const ret = function () {
+	const wrappedFunction = function (...arguments_) {
 		const start = Date.now();
-		// TODO: use rest/spread when Node.js 6 is targeted
-		const promise = fn.apply(null, arguments);
+		const promise = fn(...arguments_);
 
-		const retPromise = promise.then(res => {
+		const retPromise = promise.then(result => {
 			retPromise.time = Date.now() - start;
-			return res;
-		}, err => {
+			return result;
+		}, error => {
 			retPromise.time = Date.now() - start;
-			throw err;
+			throw error;
 		});
 
 		return retPromise;
 	};
 
-	mimicFn(ret, fn);
+	mimicFn(wrappedFunction, fn);
 
-	return ret;
+	return wrappedFunction;
 };
 
 const log = (fn, promise) => {
@@ -28,22 +27,22 @@ const log = (fn, promise) => {
 };
 
 module.exports = pTime;
+module.exports.default = pTime;
 
 module.exports.log = fn => {
 	const wrapper = pTime(fn);
 
-	return function () {
-		// TODO: use rest/spread when Node.js 6 is targeted
-		const promise = wrapper.apply(null, arguments);
+	return function (...arguments_) {
+		const promise = wrapper(...arguments_);
 
 		promise
-			.then(res => {
+			.then(result => {
 				log(wrapper, promise);
-				return res;
+				return result;
 			})
-			.catch(err => {
+			.catch(error => {
 				log(wrapper, promise);
-				throw err;
+				throw error;
 			});
 
 		return promise;
