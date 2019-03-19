@@ -11,6 +11,20 @@ declare const pTime: {
 
 	@param asyncFunction - Promise-returning/async function.
 	@returns A decorated version of `asyncFunction`.
+
+	@example
+	```
+	import pTime from 'p-time';
+	import execa from 'execa';
+
+	(async () => {
+		const promise = pTime(execa)('sleep', ['1']);
+
+		await promise;
+		console.log(promise.time);
+		//=> 1016
+	})();
+	```
 	*/
 	<ArgumentsType extends unknown[], ReturnType>(
 		asyncFunction: (...arguments: ArgumentsType) => PromiseLike<ReturnType>

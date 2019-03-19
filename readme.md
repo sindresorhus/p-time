@@ -6,7 +6,7 @@
 ## Install
 
 ```
-$ npm install --save p-time
+$ npm install p-time
 ```
 
 

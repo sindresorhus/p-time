@@ -19,7 +19,7 @@ test('catch', async t => {
 		await promise.then(() => {
 			throw new Error('fixture');
 		});
-	} catch (error) {}
+	} catch (_) {}
 
 	t.true(inRange(promise.time, 180, 250));
 });

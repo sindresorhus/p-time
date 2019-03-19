@@ -5,18 +5,18 @@ const pTime = asyncFunction => {
 	const wrappedFunction = (...arguments_) => {
 		const start = Date.now();
 
-		const retPromise = (async () => {
+		const returnPromise = (async () => {
 			try {
 				const result = await asyncFunction(...arguments_);
-				retPromise.time = Date.now() - start;
+				returnPromise.time = Date.now() - start;
 				return result;
 			} catch (error) {
-				retPromise.time = Date.now() - start;
+				returnPromise.time = Date.now() - start;
 				throw error;
 			}
 		})();
 
-		return retPromise;
+		return returnPromise;
 	};
 
 	mimicFn(wrappedFunction, asyncFunction);
