@@ -16,26 +16,27 @@ $ npm install --save p-time
 const pTime = require('p-time');
 const execa = require('execa');
 
-const promise = pTime(execa)('sleep', ['1']);
+(async () => {
+	const promise = pTime(execa)('sleep', ['1']);
 
-promise.then(() => {
+	await promise;
 	console.log(promise.time);
 	//=> 1016
-});
+})();
 ```
 
 
 ## API
 
-### pTime(input)
+### pTime(asyncFunction)
 
-Returns a decorated version of `input` that when called returns a `Promise` with a `time` property of the elapsed time in milliseconds.
+Returns a decorated version of `asyncFunction` that when called returns a `Promise` with a `time` property of the elapsed time in milliseconds.
 
-### pTime.log(input)
+### pTime.log(asyncFunction)
 
-Returns a decorated version of `input` that when called logs the elapsed time in milliseconds of the `Promise`.
+Returns a decorated version of `asyncFunction` that when called logs the elapsed time in milliseconds of the `Promise`.
 
-#### input
+#### asyncFunction
 
 Type: `Function`
 

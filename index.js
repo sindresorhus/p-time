@@ -1,26 +1,27 @@
 'use strict';
 const mimicFn = require('mimic-fn');
 
-const pTime = fn => {
-	const ret = function () {
+const pTime = asyncFunction => {
+	const wrappedFunction = (...arguments_) => {
 		const start = Date.now();
-		// TODO: use rest/spread when Node.js 6 is targeted
-		const promise = fn.apply(null, arguments);
 
-		const retPromise = promise.then(res => {
-			retPromise.time = Date.now() - start;
-			return res;
-		}, err => {
-			retPromise.time = Date.now() - start;
-			throw err;
-		});
+		const retPromise = (async () => {
+			try {
+				const result = await asyncFunction(...arguments_);
+				retPromise.time = Date.now() - start;
+				return result;
+			} catch (error) {
+				retPromise.time = Date.now() - start;
+				throw error;
+			}
+		})();
 
 		return retPromise;
 	};
 
-	mimicFn(ret, fn);
+	mimicFn(wrappedFunction, asyncFunction);
 
-	return ret;
+	return wrappedFunction;
 };
 
 const log = (fn, promise) => {
@@ -28,23 +29,22 @@ const log = (fn, promise) => {
 };
 
 module.exports = pTime;
+module.exports.default = pTime;
 
-module.exports.log = fn => {
-	const wrapper = pTime(fn);
+module.exports.log = asyncFunction => {
+	const wrappedFunction = pTime(asyncFunction);
 
-	return function () {
-		// TODO: use rest/spread when Node.js 6 is targeted
-		const promise = wrapper.apply(null, arguments);
+	return (...arguments_) => {
+		const promise = wrappedFunction(...arguments_);
 
-		promise
-			.then(res => {
-				log(wrapper, promise);
-				return res;
-			})
-			.catch(err => {
-				log(wrapper, promise);
-				throw err;
-			});
+		(async () => {
+			try {
+				await promise;
+				log(wrappedFunction, promise);
+			} catch (error) {
+				log(wrappedFunction, promise);
+			}
+		})();
 
 		return promise;
 	};
