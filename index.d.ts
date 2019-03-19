@@ -1,4 +1,4 @@
-export interface PromiseWithTime<T> extends Promise<T> {
+export interface PromiseWithTime<ValueType> extends Promise<ValueType> {
 	/**
 	The elapsed time in milliseconds.
 	*/
@@ -9,22 +9,22 @@ declare const pTime: {
 	/**
 	Measure the time a promise takes to resolve.
 
-	@param input - Promise-returning/async function.
-	@returns A decorated version of `input`.
+	@param promiseFactory - Promise-returning/async function.
+	@returns A decorated version of `promiseFactory`.
 	*/
 	<ArgumentsType extends unknown[], ReturnType>(
-		input: (...args: ArgumentsType) => PromiseLike<ReturnType>
-	): (...args: ArgumentsType) => PromiseWithTime<ReturnType>;
+		promiseFactory: (...arguments: ArgumentsType) => PromiseLike<ReturnType>
+	): (...arguments: ArgumentsType) => PromiseWithTime<ReturnType>;
 
 	/**
 	Measure the time a promise takes to resolve. Logs the elapsed time.
 
-	@param input - Promise-returning/async function.
-	@returns A decorated version of `input`.
+	@param promiseFactory - Promise-returning/async function.
+	@returns A decorated version of `promiseFactory`.
 	*/
 	log<ArgumentsType extends unknown[], ReturnType>(
-		input: (...args: ArgumentsType) => PromiseLike<ReturnType>
-	): (...args: ArgumentsType) => PromiseWithTime<ReturnType>;
+		promiseFactory: (...arguments: ArgumentsType) => PromiseLike<ReturnType>
+	): (...arguments: ArgumentsType) => PromiseWithTime<ReturnType>;
 };
 
 export default pTime;

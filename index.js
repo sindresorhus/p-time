@@ -1,25 +1,27 @@
 'use strict';
 const mimicFn = require('mimic-fn');
 
-const pTime = fn => {
-	const wrappedFunction = function (...arguments_) {
+const pTime = promiseFactory => {
+	const wrappedFactory = (...arguments_) => {
 		const start = Date.now();
-		const promise = fn(...arguments_);
 
-		const retPromise = promise.then(result => {
-			retPromise.time = Date.now() - start;
-			return result;
-		}, error => {
-			retPromise.time = Date.now() - start;
-			throw error;
-		});
+		const retPromise = (async () => {
+			try {
+				const result = await promiseFactory(...arguments_);
+				retPromise.time = Date.now() - start;
+				return result;
+			} catch (error) {
+				retPromise.time = Date.now() - start;
+				throw error;
+			}
+		})();
 
 		return retPromise;
 	};
 
-	mimicFn(wrappedFunction, fn);
+	mimicFn(wrappedFactory, promiseFactory);
 
-	return wrappedFunction;
+	return wrappedFactory;
 };
 
 const log = (fn, promise) => {
@@ -29,21 +31,20 @@ const log = (fn, promise) => {
 module.exports = pTime;
 module.exports.default = pTime;
 
-module.exports.log = fn => {
-	const wrapper = pTime(fn);
+module.exports.log = promiseFactory => {
+	const wrappedFactory = pTime(promiseFactory);
 
-	return function (...arguments_) {
-		const promise = wrapper(...arguments_);
+	return (...arguments_) => {
+		const promise = wrappedFactory(...arguments_);
 
-		promise
-			.then(result => {
-				log(wrapper, promise);
-				return result;
-			})
-			.catch(error => {
-				log(wrapper, promise);
-				throw error;
-			});
+		(async () => {
+			try {
+				await promise;
+				log(wrappedFactory, promise);
+			} catch (error) {
+				log(wrappedFactory, promise);
+			}
+		})();
 
 		return promise;
 	};
