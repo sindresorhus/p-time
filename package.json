@@ -1,6 +1,6 @@
 {
 	"name": "p-time",
-	"version": "1.0.0",
+	"version": "2.0.0",
 	"description": "Measure the time a promise takes to resolve",
 	"license": "MIT",
 	"repository": "sindresorhus/p-time",
