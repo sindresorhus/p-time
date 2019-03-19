@@ -28,15 +28,15 @@ const execa = require('execa');
 
 ## API
 
-### pTime(promiseFactory)
+### pTime(asyncFunction)
 
-Returns a decorated version of `promiseFactory` that when called returns a `Promise` with a `time` property of the elapsed time in milliseconds.
+Returns a decorated version of `asyncFunction` that when called returns a `Promise` with a `time` property of the elapsed time in milliseconds.
 
-### pTime.log(promiseFactory)
+### pTime.log(asyncFunction)
 
-Returns a decorated version of `promiseFactory` that when called logs the elapsed time in milliseconds of the `Promise`.
+Returns a decorated version of `asyncFunction` that when called logs the elapsed time in milliseconds of the `Promise`.
 
-#### promiseFactory
+#### asyncFunction
 
 Type: `Function`
 

@@ -1,13 +1,13 @@
 'use strict';
 const mimicFn = require('mimic-fn');
 
-const pTime = promiseFactory => {
-	const wrappedFactory = (...arguments_) => {
+const pTime = asyncFunction => {
+	const wrappedFunction = (...arguments_) => {
 		const start = Date.now();
 
 		const retPromise = (async () => {
 			try {
-				const result = await promiseFactory(...arguments_);
+				const result = await asyncFunction(...arguments_);
 				retPromise.time = Date.now() - start;
 				return result;
 			} catch (error) {
@@ -19,9 +19,9 @@ const pTime = promiseFactory => {
 		return retPromise;
 	};
 
-	mimicFn(wrappedFactory, promiseFactory);
+	mimicFn(wrappedFunction, asyncFunction);
 
-	return wrappedFactory;
+	return wrappedFunction;
 };
 
 const log = (fn, promise) => {
@@ -31,18 +31,18 @@ const log = (fn, promise) => {
 module.exports = pTime;
 module.exports.default = pTime;
 
-module.exports.log = promiseFactory => {
-	const wrappedFactory = pTime(promiseFactory);
+module.exports.log = asyncFunction => {
+	const wrappedFunction = pTime(asyncFunction);
 
 	return (...arguments_) => {
-		const promise = wrappedFactory(...arguments_);
+		const promise = wrappedFunction(...arguments_);
 
 		(async () => {
 			try {
 				await promise;
-				log(wrappedFactory, promise);
+				log(wrappedFunction, promise);
 			} catch (error) {
-				log(wrappedFactory, promise);
+				log(wrappedFunction, promise);
 			}
 		})();
 
