@@ -29,6 +29,7 @@ const log = (fn, promise) => {
 };
 
 module.exports = pTime;
+// TODO: Remove this for the next major release
 module.exports.default = pTime;
 
 module.exports.log = asyncFunction => {
