@@ -1,4 +1,4 @@
-# p-time [![Build Status](https://travis-ci.org/sindresorhus/p-time.svg?branch=master)](https://travis-ci.org/sindresorhus/p-time)
+# p-time
 
 > Measure the time a promise takes to resolve
 
