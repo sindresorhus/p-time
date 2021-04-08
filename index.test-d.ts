@@ -1,6 +1,5 @@
 import {expectType} from 'tsd';
-import pTime = require('.');
-import {PromiseWithTime} from '.';
+import pTime, {PromiseWithTime} from './index.js';
 
 expectType<(input: number) => PromiseWithTime<number>>(
 	pTime(async (input: number) => input)

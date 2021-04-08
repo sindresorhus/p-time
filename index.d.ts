@@ -1,10 +1,8 @@
-declare namespace pTime {
-	interface PromiseWithTime<ValueType> extends Promise<ValueType> {
-		/**
-		The elapsed time in milliseconds.
-		*/
-		readonly time?: number;
-	}
+export interface PromiseWithTime<ValueType> extends Promise<ValueType> {
+	/**
+	The elapsed time in milliseconds.
+	*/
+	readonly time?: number;
 }
 
 declare const pTime: {
@@ -16,21 +14,19 @@ declare const pTime: {
 
 	@example
 	```
-	import pTime = require('p-time');
-	import execa = require('execa');
+	import pTime from 'p-time';
+	import execa from 'execa';
 
-	(async () => {
-		const promise = pTime(execa)('sleep', ['1']);
+	const promise = pTime(execa)('sleep', ['1']);
 
-		await promise;
-		console.log(promise.time);
-		//=> 1016
-	})();
+	await promise;
+	console.log(promise.time);
+	//=> 1016
 	```
 	*/
 	<ArgumentsType extends unknown[], ReturnType>(
 		asyncFunction: (...arguments: ArgumentsType) => PromiseLike<ReturnType>
-	): (...arguments: ArgumentsType) => pTime.PromiseWithTime<ReturnType>;
+	): (...arguments: ArgumentsType) => PromiseWithTime<ReturnType>;
 
 	/**
 	Measure the time a promise takes to resolve. Logs the elapsed time.
@@ -40,10 +36,7 @@ declare const pTime: {
 	*/
 	log<ArgumentsType extends unknown[], ReturnType>(
 		asyncFunction: (...arguments: ArgumentsType) => PromiseLike<ReturnType>
-	): (...arguments: ArgumentsType) => pTime.PromiseWithTime<ReturnType>;
-
-	// TODO: Remove this for the next major release
-	default: typeof pTime;
+	): (...arguments: ArgumentsType) => PromiseWithTime<ReturnType>;
 };
 
-export = pTime;
+export default pTime;

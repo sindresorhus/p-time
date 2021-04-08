@@ -4,13 +4,16 @@
 	"description": "Measure the time a promise takes to resolve",
 	"license": "MIT",
 	"repository": "sindresorhus/p-time",
+	"funding": "https://github.com/sponsors/sindresorhus",
 	"author": {
 		"name": "Sindre Sorhus",
 		"email": "sindresorhus@gmail.com",
-		"url": "sindresorhus.com"
+		"url": "https://sindresorhus.com"
 	},
+	"type": "module",
+	"exports": "./index.js",
 	"engines": {
-		"node": ">=8"
+		"node": ">=12"
 	},
 	"scripts": {
 		"test": "xo && ava && tsd"
@@ -32,14 +35,14 @@
 		"execute"
 	],
 	"dependencies": {
-		"mimic-fn": "^2.1.0"
+		"mimic-fn": "^4.0.0"
 	},
 	"devDependencies": {
-		"ava": "^1.4.1",
-		"delay": "^4.1.0",
-		"hook-std": "^1.2.0",
-		"in-range": "^1.0.0",
-		"tsd": "^0.7.1",
-		"xo": "^0.24.0"
+		"ava": "^3.15.0",
+		"delay": "^5.0.0",
+		"hook-std": "^2.0.0",
+		"in-range": "^3.0.0",
+		"tsd": "^0.14.0",
+		"xo": "^0.38.2"
 	}
 }
