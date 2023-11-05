@@ -4,15 +4,15 @@
 
 ## Install
 
-```
-$ npm install p-time
+```sh
+npm install p-time
 ```
 
 ## Usage
 
 ```js
 import pTime from 'p-time';
-import execa from 'execa';
+import {execa} from 'execa';
 
 const promise = pTime(execa)('sleep', ['1']);
 

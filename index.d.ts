@@ -1,9 +1,9 @@
-export interface PromiseWithTime<ValueType> extends Promise<ValueType> {
+export type PromiseWithTime<ValueType> = {
 	/**
 	The elapsed time in milliseconds.
 	*/
 	readonly time?: number;
-}
+} & Promise<ValueType>;
 
 declare const pTime: {
 	/**
@@ -15,7 +15,7 @@ declare const pTime: {
 	@example
 	```
 	import pTime from 'p-time';
-	import execa from 'execa';
+	import {execa} from 'execa';
 
 	const promise = pTime(execa)('sleep', ['1']);
 

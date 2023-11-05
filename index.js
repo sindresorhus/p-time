@@ -1,6 +1,6 @@
-import mimicFunction from 'mimic-fn';
+import mimicFunction from 'mimic-function';
 
-const pTime = asyncFunction => {
+export default function pTime(asyncFunction) {
 	const wrappedFunction = (...arguments_) => {
 		const start = Date.now();
 
@@ -18,10 +18,10 @@ const pTime = asyncFunction => {
 	mimicFunction(wrappedFunction, asyncFunction);
 
 	return wrappedFunction;
-};
+}
 
-const log = (fn, promise) => {
-	console.log(`Promise from ${fn.displayName || fn.name || '[anonymous]'} resolved in ${promise.time} ms`);
+const log = (function_, promise) => {
+	console.log(`Promise from ${function_.displayName || function_.name || '[anonymous]'} resolved in ${promise.time} ms`);
 };
 
 pTime.log = asyncFunction => {
@@ -41,5 +41,3 @@ pTime.log = asyncFunction => {
 		return promise;
 	};
 };
-
-export default pTime;
